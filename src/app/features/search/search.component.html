@@ -1,0 +1,55 @@
+<app-header></app-header>
+<br>
+<div class="container-fluid animated fadeInDown">
+  <div class="row">
+    <div class="col">
+      <h1>Hacker News Search</h1>
+      <h5>Please search by Id, Author(By), or Title</h5>
+    </div>
+  </div>
+  <br>
+ <div class="row">
+    <div class="col">
+      <form [formGroup]="searchForm" (ngSubmit)="doSearch()" id="searchForm" novalidate>
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Search" formControlName="search">
+            <mat-error *ngIf="searchForm.get('search').invalid && searchForm.get('search').touched">Search input is required.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <button type="submit" id="searchStories" title="Save" [disabled]="searchForm.invalid" class="btn btn-success">
+            Search Stories
+        </button>
+        </div>
+      </form>
+    </div>
+ </div>
+</div><br><br>
+
+<div class="container-fluid animated bounceInUp" *ngIf="isDataFound; else noData">
+  <div class="row">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Author</th>
+          <th scope="col">Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let result of searchResults">
+          <td>{{result.id}}</td>
+          <td>{{result.by}}</td>
+          <td>{{result.title}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+</div>
+
+<ng-template #noData>
+  <div align="center"> 
+    <h1 class="help-block" style="color: grey">No Data Found...</h1>    
+  </div>
+</ng-template>
